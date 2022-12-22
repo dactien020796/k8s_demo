@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name }}
+data:
+  application.yml: |
+    server:
+      port: {{ .Values.service.port }}`
+    
+    {{- if .Values.application.message }}
+    greeter: {{ .Values.application.message }}
+    {{- else }}
+    greeter: "Default message if empty"
+    {{- end }}
+
+    spring:
+      datasource:
+        url: {{ .Values.application.database.url }}
+        driverClassName: {{ .Values.application.database.driverClassName }}
+      jpa:
+        hibernate:
+          ddl-auto: {{ .Values.application.database.ddlMode }}

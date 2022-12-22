@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+        - image: {{ .Values.deployment.image }}:{{ .Values.deployment.tag }}
+          name: {{ .Values.name }}
+          env:
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.name }}
+                  key: mysql-username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.name }}
+                  key: mysql-password
+          volumeMounts:
+            - name: application-config-volume
+              mountPath: "/config"
+              readOnly: true
+          ports:
+            - containerPort: {{ .Values.service.port }}
+      volumes:
+      - name: application-config-volume
+        configMap:
+          name: {{ .Values.name }}
+          items:
+          - key: application.yml
+            path: application.yml

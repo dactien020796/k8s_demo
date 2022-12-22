@@ -1,0 +1,24 @@
+# Default values for k8s-demo.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: k8s-demo-dev
+
+replicaCount: 1
+
+deployment:
+  image: "dactien020796/k8s_demo"
+  tag: "latest"
+
+service:
+  type: LoadBalancer
+  port: "8081"
+
+application:
+  message: "DEV environment"
+  database:
+    url: "jdbc:h2:mem:mydb_dev"
+    username: sa
+    password: password
+    driverClassName: "org.h2.Driver"
+    ddlMode: create-drop

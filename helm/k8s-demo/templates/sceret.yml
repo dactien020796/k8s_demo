@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Values.name }}
+type: Opaque
+stringData:
+  mysql-username: {{ .Values.application.database.username }}
+  mysql-password: {{ .Values.application.database.password }}

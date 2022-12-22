@@ -14,13 +14,3 @@ data:
       jpa:
         hibernate:
           ddl-auto: validate
-
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: application-secret
-type: Opaque
-stringData:
-  mysql-username: "admin"
-  mysql-password: "12345678"
