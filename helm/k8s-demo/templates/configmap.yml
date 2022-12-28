@@ -5,7 +5,7 @@ metadata:
 data:
   application.yml: |
     server:
-      port: {{ .Values.service.port }}`
+      port: {{ .Values.service.port }}
     
     {{- if .Values.application.message }}
     greeter: {{ .Values.application.message }}
